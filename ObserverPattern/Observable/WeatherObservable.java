@@ -3,7 +3,7 @@ package ObserverPattern.Observable;
 import java.util.ArrayList;
 import java.util.List;
 
-import ObserverPattern.Weather;
+import ObserverPattern.Models.Weather;
 import ObserverPattern.Observer.Observer;
 
 public class WeatherObservable implements Observable{

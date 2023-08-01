@@ -1,5 +1,6 @@
 package ObserverPattern;
 
+import ObserverPattern.Models.Weather;
 import ObserverPattern.Observable.Observable;
 import ObserverPattern.Observable.WeatherObservable;
 import ObserverPattern.Observer.Observer;

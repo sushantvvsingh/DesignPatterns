@@ -1,4 +1,4 @@
-package ObserverPattern;
+package ObserverPattern.Models;
 
 public class Weather {
 

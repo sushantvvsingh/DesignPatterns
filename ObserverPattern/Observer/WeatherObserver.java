@@ -1,6 +1,6 @@
 package ObserverPattern.Observer;
 
-import ObserverPattern.Weather;
+import ObserverPattern.Models.Weather;
 import ObserverPattern.Observable.Observable;
 
 public class WeatherObserver implements Observer{
