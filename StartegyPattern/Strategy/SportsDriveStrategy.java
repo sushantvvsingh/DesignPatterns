@@ -3,7 +3,7 @@ package StartegyPattern.Strategy;
 public class SportsDriveStrategy implements DriveStrategy {
 
     @Override
-    public void Drive() {
+    public void drive() {
         System.out.println("Sports Drive Strategy....");
     }   
 }

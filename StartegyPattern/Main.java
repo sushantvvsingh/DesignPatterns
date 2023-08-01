@@ -6,8 +6,8 @@ import StartegyPattern.Strategy.SportsDriveStrategy;
 public class Main{
     public static void main(String[] args) {
         Vehicle publicVehicle = new PublicVehicle(new PublicDriveStrategy());
-        publicVehicle.Drive();
+        publicVehicle.drive();
         Vehicle sportsVehicle = new SportsVehicle(new SportsDriveStrategy());
-        sportsVehicle.Drive();
+        sportsVehicle.drive();
     }
 }

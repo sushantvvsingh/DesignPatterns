@@ -9,7 +9,7 @@ class Vehicle{
         this.driveStrategy = driveStrategy;
     }
 
-    public void Drive(){
-        driveStrategy.Drive();
+    public void drive(){
+        driveStrategy.drive();
     }
 }
