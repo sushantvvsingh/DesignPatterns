@@ -1,5 +1,6 @@
 package StartegyPattern.Strategy;
 
+//IS-A
 public class PublicDriveStrategy implements DriveStrategy {
 
     @Override
