@@ -1,14 +1,14 @@
 package ObserverPattern.Observer;
 
 import ObserverPattern.Models.Weather;
-import ObserverPattern.Observable.Observable;
+import ObserverPattern.Observable.WeatherObservable;
 
 public class WeatherObserver implements Observer{
 
-    Observable observable;
+    WeatherObservable observable;
     Weather weather;
 
-    public WeatherObserver(Observable observable){
+    public WeatherObserver(WeatherObservable observable){
         this.observable = observable;
     }
 

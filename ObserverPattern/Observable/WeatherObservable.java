@@ -14,13 +14,10 @@ public class WeatherObservable implements Observable{
     @Override
     public void add(Observer obj) {
         observers.add(obj);
-        
     }
 
-    @Override
     public Weather getValue() {
         return this.weather;
-        
     }
 
     @Override
@@ -28,7 +25,6 @@ public class WeatherObservable implements Observable{
         for(Observer ob: observers){
             ob.update();
         }
-        
     }
 
     @Override
@@ -36,10 +32,8 @@ public class WeatherObservable implements Observable{
         if(observers.contains(obj)){
             observers.remove(obj);
         }
-        
     }
 
-    @Override
     public void setValue(Weather weather) {
         if(weather.getTemperature() != this.weather.getTemperature()
         || weather.getHumidity() != this.weather.getHumidity()){
