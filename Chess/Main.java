@@ -1,5 +1,7 @@
 package Chess;
 
+import java.util.Scanner;
+
 enum PieceType{
     KING, QUEEN, PAWN, ROOKIE, BISHOP, KNIGHT;
 }
@@ -25,6 +27,13 @@ class Player{
     public void setName(String name) {
         this.name = name;
     }
+    public Boolean getIsWhite() {
+        return isWhite;
+    }
+    public void setIsWhite(Boolean isWhite) {
+        this.isWhite = isWhite;
+    }
+    
 }
 
 class Game{
@@ -90,6 +99,7 @@ class Board{
     public void displayBoard(){
         for(int i = 0; i<8; ++i){
             for(int j = 0; j<8; ++j){
+                if(this.cells[i][j] != null)
                 System.out.println(this.cells[i][j].getPiece().getPieceType());
             }
         }
@@ -112,6 +122,23 @@ class Cell{
     public IPiece getPiece(){
         return piece;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+    
 }
 
 interface IPiece{
@@ -180,5 +207,40 @@ class KingPiece implements IPiece{
 public class Main {
     public static void main(String[] agrs){
 
+        Player player1 = new Player(1,"Sushant Singh" , true);
+        Player player2 = new Player(2,"Abhishek Singh" , false);
+        Player currPlayer = player1;
+        Boolean winner = false;
+        Game game = new Game(player1, player2);
+        game.init();
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            int x1 = scanner.nextInt();
+            int y1 = scanner.nextInt();
+            int x2 = scanner.nextInt();
+            int y2 = scanner.nextInt();
+            Cell start = game.getBoard().getCell(x1, y1);
+            Cell end = game.getBoard().getCell(x2, y2);
+            IPiece currPiece = start.getPiece();
+            if(currPiece.canMove(start, end)){
+                if(end.getPiece().getPieceType() == PieceType.KING){
+                    winner = true;
+                    break;
+                }
+                game.movePiece(currPiece, x1, y1, x2, y2);
+                if(currPlayer == player1){
+                    currPlayer = player2;
+                }
+                else currPlayer = player1;
+            }
+            else {
+                System.out.println("Not a valid move");
+            }
+        }
+        if(winner){
+            System.out.println(currPlayer.getName() + " is the winner");
+        }  
+        if(scanner!=null)
+            scanner.close();
     }
 }
