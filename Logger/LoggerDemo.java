@@ -38,74 +38,72 @@ class FileLogger implements ILoggerSink{
 abstract class LoggerChain{
 
     private LoggerChain nextLogger;
-    protected ILoggerSink sink;
-    LoggerChain(LoggerChain nextLogger, ILoggerSink sink){
+    LoggerChain(LoggerChain nextLogger){
         this.nextLogger = nextLogger;
-        this.sink = sink;
     }
-    public void log(String message, LogType type){
+    public void log(String message, LogType type, ILoggerSink sink){
         if(this.nextLogger != null)
-            this.nextLogger.log(message,type);
+            this.nextLogger.log(message,type, sink);
     }
 }
 class InfoLogger extends LoggerChain{
 
 
-    InfoLogger(LoggerChain nextLogger, ILoggerSink sink) {
-        super(nextLogger, sink);
+    InfoLogger(LoggerChain nextLogger) {
+        super(nextLogger);
     }
 
     @Override
-    public void log(String message, LogType type) {
+    public void log(String message, LogType type, ILoggerSink sink) {
         if(type == LogType.INFO){
             sink.log(type + " " +  message);
         }
-        else super.log(message, type);
+        else super.log(message, type, sink);
     }
 }
 class DebugLogger extends LoggerChain{
 
 
-    DebugLogger(LoggerChain nextLogger, ILoggerSink sink) {
-        super(nextLogger, sink);
+    DebugLogger(LoggerChain nextLogger) {
+        super(nextLogger);
     }
 
     @Override
-    public void log(String message, LogType type) {
+    public void log(String message, LogType type, ILoggerSink sink) {
         if(type == LogType.DEBUG){
             sink.log(type + " " +  message);
         }
-        else super.log(message, type);
+        else super.log(message, type, sink);
     }
 }
 class WarningLogger extends LoggerChain{
 
 
-    WarningLogger(LoggerChain nextLogger, ILoggerSink sink) {
-        super(nextLogger, sink);
+    WarningLogger(LoggerChain nextLogger) {
+        super(nextLogger);
     }
 
     @Override
-    public void log(String message, LogType type) {
+    public void log(String message, LogType type, ILoggerSink sink) {
         if(type == LogType.WARNING){
             sink.log(type + " " +  message);
         }
-        else super.log(message, type);
+        else super.log(message, type, sink);
     }
 }
 class ErrorLogger extends LoggerChain{
 
 
-    ErrorLogger(LoggerChain nextLogger, ILoggerSink sink) {
-        super(nextLogger, sink);
+    ErrorLogger(LoggerChain nextLogger) {
+        super(nextLogger);
     }
 
     @Override
-    public void log(String message, LogType type) {
+    public void log(String message, LogType type, ILoggerSink sink) {
         if(type == LogType.ERROR){
             sink.log(type + " " +  message);
         }
-        else super.log(message, type);
+        else super.log(message, type, sink);
     }
 }
 
@@ -113,13 +111,10 @@ public class LoggerDemo {
     public static void main(String[] args){
         ILoggerSink sink = new FileLogger("abc.txt");
         ILoggerSink sink1 = new ConsoleLogger();
-        LoggerChain logger = new InfoLogger(
-            new DebugLogger(
-                new WarningLogger(
-                    new ErrorLogger(null, sink), sink1), sink), sink1);
-        logger.log("test message", LogType.INFO);
-        logger.log("test message1", LogType.ERROR);
-        logger.log("test message2", LogType.DEBUG);
-        logger.log("test message3", LogType.WARNING);
+        LoggerChain logger = new InfoLogger(new DebugLogger(new WarningLogger(new ErrorLogger(null))));
+        logger.log("test message", LogType.INFO, sink1);
+        logger.log("test message1", LogType.ERROR, sink);
+        logger.log("test message2", LogType.DEBUG, sink1);
+        logger.log("test message3", LogType.WARNING, sink);
     }
 }
